@@ -1,0 +1,392 @@
+openapi: 3.1.0
+info:
+  description: An application to run AI pipelines
+  title: Livepeer AI Runner
+  version: 0.1.0
+servers:
+- description: Livepeer Cloud Community Gateway
+  url: https://dream-gateway.livepeer.cloud
+paths:
+  /text-to-image:
+    post:
+      operationId: text_to_image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToImageParams'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+          description: Successful Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Internal Server Error
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Text To Image
+  /image-to-image:
+    post:
+      operationId: image_to_image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_image_to_image_image_to_image_post'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+          description: Successful Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Internal Server Error
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Image To Image
+  /image-to-video:
+    post:
+      operationId: image_to_video
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_image_to_video_image_to_video_post'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoResponse'
+          description: Successful Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Internal Server Error
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Image To Video
+components:
+  schemas:
+    APIError:
+      example:
+        msg: msg
+      properties:
+        msg:
+          title: Msg
+          type: string
+      required:
+      - msg
+      title: APIError
+    Body_image_to_image_image_to_image_post:
+      properties:
+        prompt:
+          title: Prompt
+          type: string
+        image:
+          format: binary
+          title: Image
+          type: string
+        model_id:
+          default: ""
+          title: Model Id
+          type: string
+        strength:
+          default: 0.8
+          title: Strength
+          type: number
+        guidance_scale:
+          default: 7.5
+          title: Guidance Scale
+          type: number
+        negative_prompt:
+          default: ""
+          title: Negative Prompt
+          type: string
+        safety_check:
+          default: true
+          title: Safety Check
+          type: boolean
+        seed:
+          title: Seed
+          type: integer
+        num_images_per_prompt:
+          default: 1
+          title: Num Images Per Prompt
+          type: integer
+      required:
+      - image
+      - model_id
+      - prompt
+      title: Body_image_to_image_image_to_image_post
+    Body_image_to_video_image_to_video_post:
+      properties:
+        image:
+          format: binary
+          title: Image
+          type: string
+        model_id:
+          default: ""
+          title: Model Id
+          type: string
+        height:
+          default: 576
+          title: Height
+          type: integer
+        width:
+          default: 1024
+          title: Width
+          type: integer
+        fps:
+          default: 6
+          title: Fps
+          type: integer
+        motion_bucket_id:
+          default: 127
+          title: Motion Bucket Id
+          type: integer
+        noise_aug_strength:
+          default: 0.02
+          title: Noise Aug Strength
+          type: number
+        seed:
+          title: Seed
+          type: integer
+      required:
+      - image
+      - model_id
+      title: Body_image_to_video_image_to_video_post
+    HTTPError:
+      example:
+        detail:
+          msg: msg
+      properties:
+        detail:
+          $ref: '#/components/schemas/APIError'
+      required:
+      - detail
+      title: HTTPError
+    HTTPValidationError:
+      example:
+        detail:
+        - msg: msg
+          loc:
+          - ValidationError_loc_inner
+          - ValidationError_loc_inner
+          type: type
+        - msg: msg
+          loc:
+          - ValidationError_loc_inner
+          - ValidationError_loc_inner
+          type: type
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+      title: HTTPValidationError
+    HealthCheck:
+      properties:
+        status:
+          default: OK
+          title: Status
+          type: string
+      title: HealthCheck
+    ImageResponse:
+      example:
+        images:
+        - seed: 0
+          nsfw: true
+          url: url
+        - seed: 0
+          nsfw: true
+          url: url
+      properties:
+        images:
+          items:
+            $ref: '#/components/schemas/Media'
+          type: array
+      required:
+      - images
+      title: ImageResponse
+    Media:
+      example:
+        seed: 0
+        nsfw: true
+        url: url
+      properties:
+        url:
+          title: Url
+          type: string
+        seed:
+          title: Seed
+          type: integer
+        nsfw:
+          title: Nsfw
+          type: boolean
+      required:
+      - nsfw
+      - seed
+      - url
+      title: Media
+    TextToImageParams:
+      example:
+        seed: 5
+        negative_prompt: ""
+        guidance_scale: 1.4658129805029452
+        num_images_per_prompt: 2
+        width: 6
+        safety_check: true
+        model_id: ""
+        prompt: prompt
+        height: 0
+        num_inference_steps: 5
+      properties:
+        model_id:
+          default: ""
+          title: Model Id
+          type: string
+        prompt:
+          title: Prompt
+          type: string
+        height:
+          title: Height
+          type: integer
+        width:
+          title: Width
+          type: integer
+        guidance_scale:
+          default: 7.5
+          title: Guidance Scale
+          type: number
+        negative_prompt:
+          default: ""
+          title: Negative Prompt
+          type: string
+        safety_check:
+          default: true
+          title: Safety Check
+          type: boolean
+        seed:
+          title: Seed
+          type: integer
+        num_inference_steps:
+          default: 50
+          title: Num Inference Steps
+          type: integer
+        num_images_per_prompt:
+          default: 1
+          title: Num Images Per Prompt
+          type: integer
+      required:
+      - model_id
+      - prompt
+      title: TextToImageParams
+    ValidationError:
+      example:
+        msg: msg
+        loc:
+        - ValidationError_loc_inner
+        - ValidationError_loc_inner
+        type: type
+      properties:
+        loc:
+          items:
+            $ref: '#/components/schemas/ValidationError_loc_inner'
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    VideoResponse:
+      example:
+        frames:
+        - - seed: 0
+            nsfw: true
+            url: url
+          - seed: 0
+            nsfw: true
+            url: url
+        - - seed: 0
+            nsfw: true
+            url: url
+          - seed: 0
+            nsfw: true
+            url: url
+      properties:
+        frames:
+          items:
+            items:
+              $ref: '#/components/schemas/Media'
+            type: array
+          type: array
+      required:
+      - frames
+      title: VideoResponse
+    ValidationError_loc_inner:
+      anyOf:
+      - type: string
+      - type: integer
+  securitySchemes:
+    HTTPBearer:
+      scheme: bearer
+      type: http

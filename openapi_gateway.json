@@ -248,6 +248,11 @@
                         "title": "Negative Prompt",
                         "default": ""
                     },
+                    "safety_check": {
+                        "type": "boolean",
+                        "title": "Safety Check",
+                        "default": true
+                    },
                     "seed": {
                         "type": "integer",
                         "title": "Seed"
@@ -376,12 +381,17 @@
                     "seed": {
                         "type": "integer",
                         "title": "Seed"
+                    },
+                    "nsfw": {
+                        "type": "boolean",
+                        "title": "Nsfw"
                     }
                 },
                 "type": "object",
                 "required": [
                     "url",
-                    "seed"
+                    "seed",
+                    "nsfw"
                 ],
                 "title": "Media"
             },
@@ -414,9 +424,19 @@
                         "title": "Negative Prompt",
                         "default": ""
                     },
+                    "safety_check": {
+                        "type": "boolean",
+                        "title": "Safety Check",
+                        "default": true
+                    },
                     "seed": {
                         "type": "integer",
                         "title": "Seed"
+                    },
+                    "num_inference_steps": {
+                        "type": "integer",
+                        "title": "Num Inference Steps",
+                        "default": 50
                     },
                     "num_images_per_prompt": {
                         "type": "integer",
