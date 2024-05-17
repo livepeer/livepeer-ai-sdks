@@ -3,7 +3,20 @@
 > [!NOTE]
 > These SDKs are auto-generated and have not been rigorously tested or verified by the AI SPE team. They may contain bugs or issues.
 
-Welcome to the repository for auto-generated client SDKs for interacting with the [Livepeer AI Subnet](https://docs.livepeer.ai/developers/introduction). These SDKs are generated from the [OpenAPI specification](https://github.com/livepeer/ai-worker/blob/main/runner/openapi.json) using the [OpenAPI Generator](https://openapi-generator.tech/docs/installation) tool. If the client SDK you need is not available, you can generate it using the OpenAPI Generator tool and submit [a pull request](https://github.com/rickstaa/livepeer-ai-sdks/compare) to add it to this repository.
+Welcome to the repository for auto-generated client SDKs for interacting with the [Livepeer AI Subnet](https://docs.livepeer.ai/developers/introduction). These SDKs are generated from the [OpenAPI specification](https://github.com/livepeer/ai-worker/blob/main/runner/openapi.json) using the [OpenAPI Generator](https://openapi-generator.tech/docs/installation) tool.
+
+## Supported SDKs
+
+The following SDKs are currently available:
+
+- [Go](/sdks/go/)
+- [JavaScript](/sdks/javascript/)
+- [Python](/sdks/python/)
+- [Ruby](/sdks/ruby/)
+- [TypeScript](/sdks/typescript/)
+
+> [!TIP]
+> If the client SDK you need is not available, you can generate it using the OpenAPI Generator tool and submit [a pull request](https://github.com/rickstaa/livepeer-ai-sdks/compare) to add it to this repository.
 
 ## Generating the SDKs
 
