@@ -1,0 +1,18 @@
+# OpenapiClient::ImageResponse
+
+## Properties
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **images** | [**Array&lt;Media&gt;**](Media.md) |  |  |
+
+## Example
+
+```ruby
+require 'openapi_client'
+
+instance = OpenapiClient::ImageResponse.new(
+  images: null
+)
+```
+
