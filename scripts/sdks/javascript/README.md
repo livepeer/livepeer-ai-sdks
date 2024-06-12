@@ -113,6 +113,7 @@ var modelId = "''"; // {String}
 var opts = {
   'strength': 0.8, // {Number} 
   'guidanceScale': 7.5, // {Number} 
+  'imageGuidanceScale': 1.5, // {Number} 
   'negativePrompt': "''", // {String} 
   'safetyCheck': true, // {Boolean} 
   'seed': 56, // {Number} 
@@ -138,6 +139,7 @@ Class | Method | HTTP request | Description
 *LivepeerAiRunner.DefaultApi* | [**imageToImage**](docs/DefaultApi.md#imageToImage) | **POST** /image-to-image | Image To Image
 *LivepeerAiRunner.DefaultApi* | [**imageToVideo**](docs/DefaultApi.md#imageToVideo) | **POST** /image-to-video | Image To Video
 *LivepeerAiRunner.DefaultApi* | [**textToImage**](docs/DefaultApi.md#textToImage) | **POST** /text-to-image | Text To Image
+*LivepeerAiRunner.DefaultApi* | [**upscale**](docs/DefaultApi.md#upscale) | **POST** /upscale | Upscale
 
 
 ## Documentation for Models

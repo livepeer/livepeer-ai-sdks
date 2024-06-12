@@ -21,7 +21,7 @@ var _ MappedNullable = &VideoResponse{}
 
 // VideoResponse struct for VideoResponse
 type VideoResponse struct {
-	Frames [][]Media `json:"frames"`
+	Images []Media `json:"images"`
 }
 
 type _VideoResponse VideoResponse
@@ -30,9 +30,9 @@ type _VideoResponse VideoResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVideoResponse(frames [][]Media) *VideoResponse {
+func NewVideoResponse(images []Media) *VideoResponse {
 	this := VideoResponse{}
-	this.Frames = frames
+	this.Images = images
 	return &this
 }
 
@@ -44,28 +44,28 @@ func NewVideoResponseWithDefaults() *VideoResponse {
 	return &this
 }
 
-// GetFrames returns the Frames field value
-func (o *VideoResponse) GetFrames() [][]Media {
+// GetImages returns the Images field value
+func (o *VideoResponse) GetImages() []Media {
 	if o == nil {
-		var ret [][]Media
+		var ret []Media
 		return ret
 	}
 
-	return o.Frames
+	return o.Images
 }
 
-// GetFramesOk returns a tuple with the Frames field value
+// GetImagesOk returns a tuple with the Images field value
 // and a boolean to check if the value has been set.
-func (o *VideoResponse) GetFramesOk() ([][]Media, bool) {
+func (o *VideoResponse) GetImagesOk() ([]Media, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Frames, true
+	return o.Images, true
 }
 
-// SetFrames sets field value
-func (o *VideoResponse) SetFrames(v [][]Media) {
-	o.Frames = v
+// SetImages sets field value
+func (o *VideoResponse) SetImages(v []Media) {
+	o.Images = v
 }
 
 func (o VideoResponse) MarshalJSON() ([]byte, error) {
@@ -78,7 +78,7 @@ func (o VideoResponse) MarshalJSON() ([]byte, error) {
 
 func (o VideoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["frames"] = o.Frames
+	toSerialize["images"] = o.Images
 	return toSerialize, nil
 }
 
@@ -87,7 +87,7 @@ func (o *VideoResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"frames",
+		"images",
 	}
 
 	allProperties := make(map[string]interface{})

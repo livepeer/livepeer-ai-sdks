@@ -27,8 +27,8 @@ class VideoResponse(BaseModel):
     """
     VideoResponse
     """ # noqa: E501
-    frames: List[List[Media]]
-    __properties: ClassVar[List[str]] = ["frames"]
+    images: List[Media]
+    __properties: ClassVar[List[str]] = ["images"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,15 +69,13 @@ class VideoResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in frames (list of list)
+        # override the default output from pydantic by calling `to_dict()` of each item in images (list)
         _items = []
-        if self.frames:
-            for _item in self.frames:
+        if self.images:
+            for _item in self.images:
                 if _item:
-                    _items.append(
-                         [_inner_item.to_dict() for _inner_item in _item if _inner_item is not None]
-                    )
-            _dict['frames'] = _items
+                    _items.append(_item.to_dict())
+            _dict['images'] = _items
         return _dict
 
     @classmethod
@@ -90,10 +88,7 @@ class VideoResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "frames": [
-                    [Media.from_dict(_inner_item) for _inner_item in _item]
-                    for _item in obj["frames"]
-                ] if obj.get("frames") is not None else None
+            "images": [Media.from_dict(_item) for _item in obj["images"]] if obj.get("images") is not None else None
         })
         return _obj
 

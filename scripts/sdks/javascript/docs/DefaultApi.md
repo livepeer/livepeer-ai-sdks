@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**imageToImage**](DefaultApi.md#imageToImage) | **POST** /image-to-image | Image To Image
 [**imageToVideo**](DefaultApi.md#imageToVideo) | **POST** /image-to-video | Image To Video
 [**textToImage**](DefaultApi.md#textToImage) | **POST** /text-to-image | Text To Image
+[**upscale**](DefaultApi.md#upscale) | **POST** /upscale | Upscale
 
 
 
@@ -32,6 +33,7 @@ let modelId = "''"; // String |
 let opts = {
   'strength': 0.8, // Number | 
   'guidanceScale': 7.5, // Number | 
+  'imageGuidanceScale': 1.5, // Number | 
   'negativePrompt': "''", // String | 
   'safetyCheck': true, // Boolean | 
   'seed': 56, // Number | 
@@ -56,6 +58,7 @@ Name | Type | Description  | Notes
  **modelId** | **String**|  | [default to &#39;&#39;]
  **strength** | **Number**|  | [optional] [default to 0.8]
  **guidanceScale** | **Number**|  | [optional] [default to 7.5]
+ **imageGuidanceScale** | **Number**|  | [optional] [default to 1.5]
  **negativePrompt** | **String**|  | [optional] [default to &#39;&#39;]
  **safetyCheck** | **Boolean**|  | [optional] [default to true]
  **seed** | **Number**|  | [optional] 
@@ -99,7 +102,8 @@ let opts = {
   'fps': 6, // Number | 
   'motionBucketId': 127, // Number | 
   'noiseAugStrength': 0.02, // Number | 
-  'seed': 56 // Number | 
+  'seed': 56, // Number | 
+  'safetyCheck': true // Boolean | 
 };
 apiInstance.imageToVideo(image, modelId, opts, (error, data, response) => {
   if (error) {
@@ -123,6 +127,7 @@ Name | Type | Description  | Notes
  **motionBucketId** | **Number**|  | [optional] [default to 127]
  **noiseAugStrength** | **Number**|  | [optional] [default to 0.02]
  **seed** | **Number**|  | [optional] 
+ **safetyCheck** | **Boolean**|  | [optional] [default to true]
 
 ### Return type
 
@@ -182,5 +187,62 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## upscale
+
+> ImageResponse upscale(prompt, image, modelId, opts)
+
+Upscale
+
+### Example
+
+```javascript
+import LivepeerAiRunner from 'livepeer_ai_runner';
+let defaultClient = LivepeerAiRunner.ApiClient.instance;
+// Configure Bearer access token for authorization: HTTPBearer
+let HTTPBearer = defaultClient.authentications['HTTPBearer'];
+HTTPBearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new LivepeerAiRunner.DefaultApi();
+let prompt = "prompt_example"; // String | 
+let image = "/path/to/file"; // File | 
+let modelId = "''"; // String | 
+let opts = {
+  'safetyCheck': true, // Boolean | 
+  'seed': 56 // Number | 
+};
+apiInstance.upscale(prompt, image, modelId, opts, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **prompt** | **String**|  | 
+ **image** | **File**|  | 
+ **modelId** | **String**|  | [default to &#39;&#39;]
+ **safetyCheck** | **Boolean**|  | [optional] [default to true]
+ **seed** | **Number**|  | [optional] 
+
+### Return type
+
+[**ImageResponse**](ImageResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 

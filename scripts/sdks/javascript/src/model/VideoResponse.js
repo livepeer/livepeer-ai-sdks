@@ -23,11 +23,11 @@ class VideoResponse {
     /**
      * Constructs a new <code>VideoResponse</code>.
      * @alias module:model/VideoResponse
-     * @param frames {Array.<Array.<module:model/Media>>} 
+     * @param images {Array.<module:model/Media>} 
      */
-    constructor(frames) { 
+    constructor(images) { 
         
-        VideoResponse.initialize(this, frames);
+        VideoResponse.initialize(this, images);
     }
 
     /**
@@ -35,8 +35,8 @@ class VideoResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, frames) { 
-        obj['frames'] = frames;
+    static initialize(obj, images) { 
+        obj['images'] = images;
     }
 
     /**
@@ -50,8 +50,8 @@ class VideoResponse {
         if (data) {
             obj = obj || new VideoResponse();
 
-            if (data.hasOwnProperty('frames')) {
-                obj['frames'] = ApiClient.convertToType(data['frames'], [[Media]]);
+            if (data.hasOwnProperty('images')) {
+                obj['images'] = ApiClient.convertToType(data['images'], [Media]);
             }
         }
         return obj;
@@ -69,9 +69,15 @@ class VideoResponse {
                 throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
             }
         }
-        // ensure the json data is an array
-        if (!Array.isArray(data['frames'])) {
-            throw new Error("Expected the field `frames` to be an array in the JSON data but got " + data['frames']);
+        if (data['images']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['images'])) {
+                throw new Error("Expected the field `images` to be an array in the JSON data but got " + data['images']);
+            }
+            // validate the optional field `images` (array)
+            for (const item of data['images']) {
+                Media.validateJSON(item);
+            };
         }
 
         return true;
@@ -80,12 +86,12 @@ class VideoResponse {
 
 }
 
-VideoResponse.RequiredProperties = ["frames"];
+VideoResponse.RequiredProperties = ["images"];
 
 /**
- * @member {Array.<Array.<module:model/Media>>} frames
+ * @member {Array.<module:model/Media>} images
  */
-VideoResponse.prototype['frames'] = undefined;
+VideoResponse.prototype['images'] = undefined;
 
 
 

@@ -26,12 +26,13 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
      * @param modelId 
      * @param strength 
      * @param guidanceScale 
+     * @param imageGuidanceScale 
      * @param negativePrompt 
      * @param safetyCheck 
      * @param seed 
      * @param numImagesPerPrompt 
      */
-    public async imageToImage(prompt: string, image: HttpFile, modelId: string, strength?: number, guidanceScale?: number, negativePrompt?: string, safetyCheck?: boolean, seed?: number, numImagesPerPrompt?: number, _options?: Configuration): Promise<RequestContext> {
+    public async imageToImage(prompt: string, image: HttpFile, modelId: string, strength?: number, guidanceScale?: number, imageGuidanceScale?: number, negativePrompt?: string, safetyCheck?: boolean, seed?: number, numImagesPerPrompt?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'prompt' is not null or undefined
@@ -50,6 +51,7 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
         if (modelId === null || modelId === undefined) {
             throw new RequiredError("DefaultApi", "imageToImage", "modelId");
         }
+
 
 
 
@@ -98,6 +100,10 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
         if (guidanceScale !== undefined) {
              // TODO: replace .append with .set
              localVarFormParams.append('guidance_scale', guidanceScale as any);
+        }
+        if (imageGuidanceScale !== undefined) {
+             // TODO: replace .append with .set
+             localVarFormParams.append('image_guidance_scale', imageGuidanceScale as any);
         }
         if (negativePrompt !== undefined) {
              // TODO: replace .append with .set
@@ -150,8 +156,9 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
      * @param motionBucketId 
      * @param noiseAugStrength 
      * @param seed 
+     * @param safetyCheck 
      */
-    public async imageToVideo(image: HttpFile, modelId: string, height?: number, width?: number, fps?: number, motionBucketId?: number, noiseAugStrength?: number, seed?: number, _options?: Configuration): Promise<RequestContext> {
+    public async imageToVideo(image: HttpFile, modelId: string, height?: number, width?: number, fps?: number, motionBucketId?: number, noiseAugStrength?: number, seed?: number, safetyCheck?: boolean, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'image' is not null or undefined
@@ -164,6 +171,7 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
         if (modelId === null || modelId === undefined) {
             throw new RequiredError("DefaultApi", "imageToVideo", "modelId");
         }
+
 
 
 
@@ -225,6 +233,10 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
              // TODO: replace .append with .set
              localVarFormParams.append('seed', seed as any);
         }
+        if (safetyCheck !== undefined) {
+             // TODO: replace .append with .set
+             localVarFormParams.append('safety_check', safetyCheck as any);
+        }
 
         requestContext.setBody(localVarFormParams);
 
@@ -281,6 +293,103 @@ export class DefaultApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["HTTPBearer"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Upscale
+     * @param prompt 
+     * @param image 
+     * @param modelId 
+     * @param safetyCheck 
+     * @param seed 
+     */
+    public async upscale(prompt: string, image: HttpFile, modelId: string, safetyCheck?: boolean, seed?: number, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'prompt' is not null or undefined
+        if (prompt === null || prompt === undefined) {
+            throw new RequiredError("DefaultApi", "upscale", "prompt");
+        }
+
+
+        // verify required parameter 'image' is not null or undefined
+        if (image === null || image === undefined) {
+            throw new RequiredError("DefaultApi", "upscale", "image");
+        }
+
+
+        // verify required parameter 'modelId' is not null or undefined
+        if (modelId === null || modelId === undefined) {
+            throw new RequiredError("DefaultApi", "upscale", "modelId");
+        }
+
+
+
+
+        // Path Params
+        const localVarPath = '/upscale';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Form Params
+        const useForm = canConsumeForm([
+            'multipart/form-data',
+        ]);
+
+        let localVarFormParams
+        if (useForm) {
+            localVarFormParams = new FormData();
+        } else {
+            localVarFormParams = new URLSearchParams();
+        }
+
+        if (prompt !== undefined) {
+             // TODO: replace .append with .set
+             localVarFormParams.append('prompt', prompt as any);
+        }
+        if (image !== undefined) {
+             // TODO: replace .append with .set
+             if (localVarFormParams instanceof FormData) {
+                 localVarFormParams.append('image', image, image.name);
+             }
+        }
+        if (modelId !== undefined) {
+             // TODO: replace .append with .set
+             localVarFormParams.append('model_id', modelId as any);
+        }
+        if (safetyCheck !== undefined) {
+             // TODO: replace .append with .set
+             localVarFormParams.append('safety_check', safetyCheck as any);
+        }
+        if (seed !== undefined) {
+             // TODO: replace .append with .set
+             localVarFormParams.append('seed', seed as any);
+        }
+
+        requestContext.setBody(localVarFormParams);
+
+        if(!useForm) {
+            const contentType = ObjectSerializer.getPreferredMediaType([
+                "multipart/form-data"
+            ]);
+            requestContext.setHeaderParam("Content-Type", contentType);
+        }
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -409,6 +518,56 @@ export class DefaultApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async textToImageWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ImageResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: ImageResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ImageResponse", ""
+            ) as ImageResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: HTTPError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "HTTPError", ""
+            ) as HTTPError;
+            throw new ApiException<HTTPError>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("500", response.httpStatusCode)) {
+            const body: HTTPError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "HTTPError", ""
+            ) as HTTPError;
+            throw new ApiException<HTTPError>(response.httpStatusCode, "Internal Server Error", body, response.headers);
+        }
+        if (isCodeInRange("422", response.httpStatusCode)) {
+            const body: HTTPValidationError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "HTTPValidationError", ""
+            ) as HTTPValidationError;
+            throw new ApiException<HTTPValidationError>(response.httpStatusCode, "Validation Error", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: ImageResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ImageResponse", ""
+            ) as ImageResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to upscale
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async upscaleWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ImageResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ImageResponse = ObjectSerializer.deserialize(

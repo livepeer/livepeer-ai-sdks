@@ -72,6 +72,7 @@ model_id = 'model_id_example' # String |
 opts = {
   strength: 8.14, # Float | 
   guidance_scale: 8.14, # Float | 
+  image_guidance_scale: 8.14, # Float | 
   negative_prompt: 'negative_prompt_example', # String | 
   safety_check: true, # Boolean | 
   seed: 56, # Integer | 
@@ -97,6 +98,7 @@ Class | Method | HTTP request | Description
 *OpenapiClient::DefaultApi* | [**image_to_image**](docs/DefaultApi.md#image_to_image) | **POST** /image-to-image | Image To Image
 *OpenapiClient::DefaultApi* | [**image_to_video**](docs/DefaultApi.md#image_to_video) | **POST** /image-to-video | Image To Video
 *OpenapiClient::DefaultApi* | [**text_to_image**](docs/DefaultApi.md#text_to_image) | **POST** /text-to-image | Text To Image
+*OpenapiClient::DefaultApi* | [**upscale**](docs/DefaultApi.md#upscale) | **POST** /upscale | Upscale
 
 
 ## Documentation for Models
