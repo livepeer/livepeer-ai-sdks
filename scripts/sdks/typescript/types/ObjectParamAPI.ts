@@ -48,6 +48,12 @@ export interface DefaultApiImageToImageRequest {
     guidanceScale?: number
     /**
      * 
+     * @type number
+     * @memberof DefaultApiimageToImage
+     */
+    imageGuidanceScale?: number
+    /**
+     * 
      * @type string
      * @memberof DefaultApiimageToImage
      */
@@ -121,6 +127,12 @@ export interface DefaultApiImageToVideoRequest {
      * @memberof DefaultApiimageToVideo
      */
     seed?: number
+    /**
+     * 
+     * @type boolean
+     * @memberof DefaultApiimageToVideo
+     */
+    safetyCheck?: boolean
 }
 
 export interface DefaultApiTextToImageRequest {
@@ -130,6 +142,39 @@ export interface DefaultApiTextToImageRequest {
      * @memberof DefaultApitextToImage
      */
     textToImageParams: TextToImageParams
+}
+
+export interface DefaultApiUpscaleRequest {
+    /**
+     * 
+     * @type string
+     * @memberof DefaultApiupscale
+     */
+    prompt: string
+    /**
+     * 
+     * @type HttpFile
+     * @memberof DefaultApiupscale
+     */
+    image: HttpFile
+    /**
+     * 
+     * @type string
+     * @memberof DefaultApiupscale
+     */
+    modelId: string
+    /**
+     * 
+     * @type boolean
+     * @memberof DefaultApiupscale
+     */
+    safetyCheck?: boolean
+    /**
+     * 
+     * @type number
+     * @memberof DefaultApiupscale
+     */
+    seed?: number
 }
 
 export class ObjectDefaultApi {
@@ -144,7 +189,7 @@ export class ObjectDefaultApi {
      * @param param the request object
      */
     public imageToImageWithHttpInfo(param: DefaultApiImageToImageRequest, options?: Configuration): Promise<HttpInfo<ImageResponse>> {
-        return this.api.imageToImageWithHttpInfo(param.prompt, param.image, param.modelId, param.strength, param.guidanceScale, param.negativePrompt, param.safetyCheck, param.seed, param.numImagesPerPrompt,  options).toPromise();
+        return this.api.imageToImageWithHttpInfo(param.prompt, param.image, param.modelId, param.strength, param.guidanceScale, param.imageGuidanceScale, param.negativePrompt, param.safetyCheck, param.seed, param.numImagesPerPrompt,  options).toPromise();
     }
 
     /**
@@ -152,7 +197,7 @@ export class ObjectDefaultApi {
      * @param param the request object
      */
     public imageToImage(param: DefaultApiImageToImageRequest, options?: Configuration): Promise<ImageResponse> {
-        return this.api.imageToImage(param.prompt, param.image, param.modelId, param.strength, param.guidanceScale, param.negativePrompt, param.safetyCheck, param.seed, param.numImagesPerPrompt,  options).toPromise();
+        return this.api.imageToImage(param.prompt, param.image, param.modelId, param.strength, param.guidanceScale, param.imageGuidanceScale, param.negativePrompt, param.safetyCheck, param.seed, param.numImagesPerPrompt,  options).toPromise();
     }
 
     /**
@@ -160,7 +205,7 @@ export class ObjectDefaultApi {
      * @param param the request object
      */
     public imageToVideoWithHttpInfo(param: DefaultApiImageToVideoRequest, options?: Configuration): Promise<HttpInfo<VideoResponse>> {
-        return this.api.imageToVideoWithHttpInfo(param.image, param.modelId, param.height, param.width, param.fps, param.motionBucketId, param.noiseAugStrength, param.seed,  options).toPromise();
+        return this.api.imageToVideoWithHttpInfo(param.image, param.modelId, param.height, param.width, param.fps, param.motionBucketId, param.noiseAugStrength, param.seed, param.safetyCheck,  options).toPromise();
     }
 
     /**
@@ -168,7 +213,7 @@ export class ObjectDefaultApi {
      * @param param the request object
      */
     public imageToVideo(param: DefaultApiImageToVideoRequest, options?: Configuration): Promise<VideoResponse> {
-        return this.api.imageToVideo(param.image, param.modelId, param.height, param.width, param.fps, param.motionBucketId, param.noiseAugStrength, param.seed,  options).toPromise();
+        return this.api.imageToVideo(param.image, param.modelId, param.height, param.width, param.fps, param.motionBucketId, param.noiseAugStrength, param.seed, param.safetyCheck,  options).toPromise();
     }
 
     /**
@@ -185,6 +230,22 @@ export class ObjectDefaultApi {
      */
     public textToImage(param: DefaultApiTextToImageRequest, options?: Configuration): Promise<ImageResponse> {
         return this.api.textToImage(param.textToImageParams,  options).toPromise();
+    }
+
+    /**
+     * Upscale
+     * @param param the request object
+     */
+    public upscaleWithHttpInfo(param: DefaultApiUpscaleRequest, options?: Configuration): Promise<HttpInfo<ImageResponse>> {
+        return this.api.upscaleWithHttpInfo(param.prompt, param.image, param.modelId, param.safetyCheck, param.seed,  options).toPromise();
+    }
+
+    /**
+     * Upscale
+     * @param param the request object
+     */
+    public upscale(param: DefaultApiUpscaleRequest, options?: Configuration): Promise<ImageResponse> {
+        return this.api.upscale(param.prompt, param.image, param.modelId, param.safetyCheck, param.seed,  options).toPromise();
     }
 
 }

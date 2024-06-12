@@ -54,6 +54,7 @@ export default class DefaultApi {
      * @param {Object} opts Optional parameters
      * @param {Number} [strength = 0.8)] 
      * @param {Number} [guidanceScale = 7.5)] 
+     * @param {Number} [imageGuidanceScale = 1.5)] 
      * @param {String} [negativePrompt = '')] 
      * @param {Boolean} [safetyCheck = true)] 
      * @param {Number} [seed] 
@@ -89,6 +90,7 @@ export default class DefaultApi {
         'model_id': modelId,
         'strength': opts['strength'],
         'guidance_scale': opts['guidanceScale'],
+        'image_guidance_scale': opts['imageGuidanceScale'],
         'negative_prompt': opts['negativePrompt'],
         'safety_check': opts['safetyCheck'],
         'seed': opts['seed'],
@@ -125,6 +127,7 @@ export default class DefaultApi {
      * @param {Number} [motionBucketId = 127)] 
      * @param {Number} [noiseAugStrength = 0.02)] 
      * @param {Number} [seed] 
+     * @param {Boolean} [safetyCheck = true)] 
      * @param {module:api/DefaultApi~imageToVideoCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/VideoResponse}
      */
@@ -154,7 +157,8 @@ export default class DefaultApi {
         'fps': opts['fps'],
         'motion_bucket_id': opts['motionBucketId'],
         'noise_aug_strength': opts['noiseAugStrength'],
-        'seed': opts['seed']
+        'seed': opts['seed'],
+        'safety_check': opts['safetyCheck']
       };
 
       let authNames = ['HTTPBearer'];
@@ -204,6 +208,66 @@ export default class DefaultApi {
       let returnType = ImageResponse;
       return this.apiClient.callApi(
         '/text-to-image', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the upscale operation.
+     * @callback module:api/DefaultApi~upscaleCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/ImageResponse} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Upscale
+     * @param {String} prompt 
+     * @param {File} image 
+     * @param {String} modelId 
+     * @param {Object} opts Optional parameters
+     * @param {Boolean} [safetyCheck = true)] 
+     * @param {Number} [seed] 
+     * @param {module:api/DefaultApi~upscaleCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/ImageResponse}
+     */
+    upscale(prompt, image, modelId, opts, callback) {
+      opts = opts || {};
+      let postBody = null;
+      // verify the required parameter 'prompt' is set
+      if (prompt === undefined || prompt === null) {
+        throw new Error("Missing the required parameter 'prompt' when calling upscale");
+      }
+      // verify the required parameter 'image' is set
+      if (image === undefined || image === null) {
+        throw new Error("Missing the required parameter 'image' when calling upscale");
+      }
+      // verify the required parameter 'modelId' is set
+      if (modelId === undefined || modelId === null) {
+        throw new Error("Missing the required parameter 'modelId' when calling upscale");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+        'prompt': prompt,
+        'image': image,
+        'model_id': modelId,
+        'safety_check': opts['safetyCheck'],
+        'seed': opts['seed']
+      };
+
+      let authNames = ['HTTPBearer'];
+      let contentTypes = ['multipart/form-data'];
+      let accepts = ['application/json'];
+      let returnType = ImageResponse;
+      return this.apiClient.callApi(
+        '/upscale', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

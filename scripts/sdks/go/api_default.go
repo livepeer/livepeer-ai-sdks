@@ -31,6 +31,7 @@ type ApiImageToImageRequest struct {
 	modelId *string
 	strength *float32
 	guidanceScale *float32
+	imageGuidanceScale *float32
 	negativePrompt *string
 	safetyCheck *bool
 	seed *int32
@@ -59,6 +60,11 @@ func (r ApiImageToImageRequest) Strength(strength float32) ApiImageToImageReques
 
 func (r ApiImageToImageRequest) GuidanceScale(guidanceScale float32) ApiImageToImageRequest {
 	r.guidanceScale = &guidanceScale
+	return r
+}
+
+func (r ApiImageToImageRequest) ImageGuidanceScale(imageGuidanceScale float32) ApiImageToImageRequest {
+	r.imageGuidanceScale = &imageGuidanceScale
 	return r
 }
 
@@ -169,6 +175,9 @@ func (a *DefaultAPIService) ImageToImageExecute(r ApiImageToImageRequest) (*Imag
 	if r.guidanceScale != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "guidance_scale", r.guidanceScale, "")
 	}
+	if r.imageGuidanceScale != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "image_guidance_scale", r.imageGuidanceScale, "")
+	}
 	if r.negativePrompt != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "negative_prompt", r.negativePrompt, "")
 	}
@@ -261,6 +270,7 @@ type ApiImageToVideoRequest struct {
 	motionBucketId *int32
 	noiseAugStrength *float32
 	seed *int32
+	safetyCheck *bool
 }
 
 func (r ApiImageToVideoRequest) Image(image *os.File) ApiImageToVideoRequest {
@@ -300,6 +310,11 @@ func (r ApiImageToVideoRequest) NoiseAugStrength(noiseAugStrength float32) ApiIm
 
 func (r ApiImageToVideoRequest) Seed(seed int32) ApiImageToVideoRequest {
 	r.seed = &seed
+	return r
+}
+
+func (r ApiImageToVideoRequest) SafetyCheck(safetyCheck bool) ApiImageToVideoRequest {
+	r.safetyCheck = &safetyCheck
 	return r
 }
 
@@ -397,6 +412,9 @@ func (a *DefaultAPIService) ImageToVideoExecute(r ApiImageToVideoRequest) (*Vide
 	}
 	if r.seed != nil {
 		parameterAddToHeaderOrQuery(localVarFormParams, "seed", r.seed, "")
+	}
+	if r.safetyCheck != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "safety_check", r.safetyCheck, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -538,6 +556,197 @@ func (a *DefaultAPIService) TextToImageExecute(r ApiTextToImageRequest) (*ImageR
 	}
 	// body params
 	localVarPostBody = r.textToImageParams
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v HTTPError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v HTTPError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v HTTPValidationError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpscaleRequest struct {
+	ctx context.Context
+	ApiService *DefaultAPIService
+	prompt *string
+	image *os.File
+	modelId *string
+	safetyCheck *bool
+	seed *int32
+}
+
+func (r ApiUpscaleRequest) Prompt(prompt string) ApiUpscaleRequest {
+	r.prompt = &prompt
+	return r
+}
+
+func (r ApiUpscaleRequest) Image(image *os.File) ApiUpscaleRequest {
+	r.image = image
+	return r
+}
+
+func (r ApiUpscaleRequest) ModelId(modelId string) ApiUpscaleRequest {
+	r.modelId = &modelId
+	return r
+}
+
+func (r ApiUpscaleRequest) SafetyCheck(safetyCheck bool) ApiUpscaleRequest {
+	r.safetyCheck = &safetyCheck
+	return r
+}
+
+func (r ApiUpscaleRequest) Seed(seed int32) ApiUpscaleRequest {
+	r.seed = &seed
+	return r
+}
+
+func (r ApiUpscaleRequest) Execute() (*ImageResponse, *http.Response, error) {
+	return r.ApiService.UpscaleExecute(r)
+}
+
+/*
+Upscale Upscale
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiUpscaleRequest
+*/
+func (a *DefaultAPIService) Upscale(ctx context.Context) ApiUpscaleRequest {
+	return ApiUpscaleRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ImageResponse
+func (a *DefaultAPIService) UpscaleExecute(r ApiUpscaleRequest) (*ImageResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ImageResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.Upscale")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/upscale"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.prompt == nil {
+		return localVarReturnValue, nil, reportError("prompt is required and must be specified")
+	}
+	if r.image == nil {
+		return localVarReturnValue, nil, reportError("image is required and must be specified")
+	}
+	if r.modelId == nil {
+		return localVarReturnValue, nil, reportError("modelId is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarFormParams, "prompt", r.prompt, "")
+	var imageLocalVarFormFileName string
+	var imageLocalVarFileName     string
+	var imageLocalVarFileBytes    []byte
+
+	imageLocalVarFormFileName = "image"
+	imageLocalVarFile := r.image
+
+	if imageLocalVarFile != nil {
+		fbs, _ := io.ReadAll(imageLocalVarFile)
+
+		imageLocalVarFileBytes = fbs
+		imageLocalVarFileName = imageLocalVarFile.Name()
+		imageLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: imageLocalVarFileBytes, fileName: imageLocalVarFileName, formFileName: imageLocalVarFormFileName})
+	}
+	parameterAddToHeaderOrQuery(localVarFormParams, "model_id", r.modelId, "")
+	if r.safetyCheck != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "safety_check", r.safetyCheck, "")
+	}
+	if r.seed != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "seed", r.seed, "")
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

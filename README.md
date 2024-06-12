@@ -24,7 +24,14 @@ To generate the SDKs, follow these steps:
 
 1. Install the OpenAPI Generator tool. You can find the installation instructions [here](https://openapi-generator.tech/docs/installation).
 2. Install [JDK 9 or later](https://openjdk.org/install/).
-3. Execute the following command to generate the Python Client SDK:
+3. Generate the OpenAPI specification by running the `gen_openapi.py` script located in the [ai-worker repository](https://github.com/livepeer/ai-worker). This script produces the `openapi_gateway.json` file at the root of the repository. Use the `--entrypoint` flag to define the entrypoint for the OpenAPI specification. For instance, to create the OpenAPI specification for the gateway, use the command below:
+
+   ```bash
+   python gen_openapi.py --entrypoint gateway
+   ```
+
+4. Copy the `openapi_gateway.json` file to the root of this repository.
+5. Execute the following command to generate the Python Client SDK:
 
 ```bash
 npx @openapitools/openapi-generator-cli generate -i openapi_gateway.json -g python -o sdks/python-typed -p packageName=livepeer_ai

@@ -7,12 +7,13 @@ Method | HTTP request | Description
 [**ImageToImage**](DefaultAPI.md#ImageToImage) | **Post** /image-to-image | Image To Image
 [**ImageToVideo**](DefaultAPI.md#ImageToVideo) | **Post** /image-to-video | Image To Video
 [**TextToImage**](DefaultAPI.md#TextToImage) | **Post** /text-to-image | Text To Image
+[**Upscale**](DefaultAPI.md#Upscale) | **Post** /upscale | Upscale
 
 
 
 ## ImageToImage
 
-> ImageResponse ImageToImage(ctx).Prompt(prompt).Image(image).ModelId(modelId).Strength(strength).GuidanceScale(guidanceScale).NegativePrompt(negativePrompt).SafetyCheck(safetyCheck).Seed(seed).NumImagesPerPrompt(numImagesPerPrompt).Execute()
+> ImageResponse ImageToImage(ctx).Prompt(prompt).Image(image).ModelId(modelId).Strength(strength).GuidanceScale(guidanceScale).ImageGuidanceScale(imageGuidanceScale).NegativePrompt(negativePrompt).SafetyCheck(safetyCheck).Seed(seed).NumImagesPerPrompt(numImagesPerPrompt).Execute()
 
 Image To Image
 
@@ -34,6 +35,7 @@ func main() {
 	modelId := "modelId_example" // string |  (default to "")
 	strength := float32(8.14) // float32 |  (optional) (default to 0.8)
 	guidanceScale := float32(8.14) // float32 |  (optional) (default to 7.5)
+	imageGuidanceScale := float32(8.14) // float32 |  (optional) (default to 1.5)
 	negativePrompt := "negativePrompt_example" // string |  (optional) (default to "")
 	safetyCheck := true // bool |  (optional) (default to true)
 	seed := int32(56) // int32 |  (optional)
@@ -41,7 +43,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DefaultAPI.ImageToImage(context.Background()).Prompt(prompt).Image(image).ModelId(modelId).Strength(strength).GuidanceScale(guidanceScale).NegativePrompt(negativePrompt).SafetyCheck(safetyCheck).Seed(seed).NumImagesPerPrompt(numImagesPerPrompt).Execute()
+	resp, r, err := apiClient.DefaultAPI.ImageToImage(context.Background()).Prompt(prompt).Image(image).ModelId(modelId).Strength(strength).GuidanceScale(guidanceScale).ImageGuidanceScale(imageGuidanceScale).NegativePrompt(negativePrompt).SafetyCheck(safetyCheck).Seed(seed).NumImagesPerPrompt(numImagesPerPrompt).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.ImageToImage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,6 +69,7 @@ Name | Type | Description  | Notes
  **modelId** | **string** |  | [default to &quot;&quot;]
  **strength** | **float32** |  | [default to 0.8]
  **guidanceScale** | **float32** |  | [default to 7.5]
+ **imageGuidanceScale** | **float32** |  | [default to 1.5]
  **negativePrompt** | **string** |  | [default to &quot;&quot;]
  **safetyCheck** | **bool** |  | [default to true]
  **seed** | **int32** |  | 
@@ -92,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## ImageToVideo
 
-> VideoResponse ImageToVideo(ctx).Image(image).ModelId(modelId).Height(height).Width(width).Fps(fps).MotionBucketId(motionBucketId).NoiseAugStrength(noiseAugStrength).Seed(seed).Execute()
+> VideoResponse ImageToVideo(ctx).Image(image).ModelId(modelId).Height(height).Width(width).Fps(fps).MotionBucketId(motionBucketId).NoiseAugStrength(noiseAugStrength).Seed(seed).SafetyCheck(safetyCheck).Execute()
 
 Image To Video
 
@@ -117,10 +120,11 @@ func main() {
 	motionBucketId := int32(56) // int32 |  (optional) (default to 127)
 	noiseAugStrength := float32(8.14) // float32 |  (optional) (default to 0.02)
 	seed := int32(56) // int32 |  (optional)
+	safetyCheck := true // bool |  (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DefaultAPI.ImageToVideo(context.Background()).Image(image).ModelId(modelId).Height(height).Width(width).Fps(fps).MotionBucketId(motionBucketId).NoiseAugStrength(noiseAugStrength).Seed(seed).Execute()
+	resp, r, err := apiClient.DefaultAPI.ImageToVideo(context.Background()).Image(image).ModelId(modelId).Height(height).Width(width).Fps(fps).MotionBucketId(motionBucketId).NoiseAugStrength(noiseAugStrength).Seed(seed).SafetyCheck(safetyCheck).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.ImageToVideo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -149,6 +153,7 @@ Name | Type | Description  | Notes
  **motionBucketId** | **int32** |  | [default to 127]
  **noiseAugStrength** | **float32** |  | [default to 0.02]
  **seed** | **int32** |  | 
+ **safetyCheck** | **bool** |  | [default to true]
 
 ### Return type
 
@@ -225,6 +230,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## Upscale
+
+> ImageResponse Upscale(ctx).Prompt(prompt).Image(image).ModelId(modelId).SafetyCheck(safetyCheck).Seed(seed).Execute()
+
+Upscale
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	prompt := "prompt_example" // string | 
+	image := os.NewFile(1234, "some_file") // *os.File | 
+	modelId := "modelId_example" // string |  (default to "")
+	safetyCheck := true // bool |  (optional) (default to true)
+	seed := int32(56) // int32 |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DefaultAPI.Upscale(context.Background()).Prompt(prompt).Image(image).ModelId(modelId).SafetyCheck(safetyCheck).Seed(seed).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DefaultAPI.Upscale``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Upscale`: ImageResponse
+	fmt.Fprintf(os.Stdout, "Response from `DefaultAPI.Upscale`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpscaleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **prompt** | **string** |  | 
+ **image** | ***os.File** |  | 
+ **modelId** | **string** |  | [default to &quot;&quot;]
+ **safetyCheck** | **bool** |  | [default to true]
+ **seed** | **int32** |  | 
+
+### Return type
+
+[**ImageResponse**](ImageResponse.md)
+
+### Authorization
+
+[HTTPBearer](../README.md#HTTPBearer)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

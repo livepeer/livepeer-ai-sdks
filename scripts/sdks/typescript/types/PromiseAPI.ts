@@ -32,13 +32,14 @@ export class PromiseDefaultApi {
      * @param modelId 
      * @param strength 
      * @param guidanceScale 
+     * @param imageGuidanceScale 
      * @param negativePrompt 
      * @param safetyCheck 
      * @param seed 
      * @param numImagesPerPrompt 
      */
-    public imageToImageWithHttpInfo(prompt: string, image: HttpFile, modelId: string, strength?: number, guidanceScale?: number, negativePrompt?: string, safetyCheck?: boolean, seed?: number, numImagesPerPrompt?: number, _options?: Configuration): Promise<HttpInfo<ImageResponse>> {
-        const result = this.api.imageToImageWithHttpInfo(prompt, image, modelId, strength, guidanceScale, negativePrompt, safetyCheck, seed, numImagesPerPrompt, _options);
+    public imageToImageWithHttpInfo(prompt: string, image: HttpFile, modelId: string, strength?: number, guidanceScale?: number, imageGuidanceScale?: number, negativePrompt?: string, safetyCheck?: boolean, seed?: number, numImagesPerPrompt?: number, _options?: Configuration): Promise<HttpInfo<ImageResponse>> {
+        const result = this.api.imageToImageWithHttpInfo(prompt, image, modelId, strength, guidanceScale, imageGuidanceScale, negativePrompt, safetyCheck, seed, numImagesPerPrompt, _options);
         return result.toPromise();
     }
 
@@ -49,13 +50,14 @@ export class PromiseDefaultApi {
      * @param modelId 
      * @param strength 
      * @param guidanceScale 
+     * @param imageGuidanceScale 
      * @param negativePrompt 
      * @param safetyCheck 
      * @param seed 
      * @param numImagesPerPrompt 
      */
-    public imageToImage(prompt: string, image: HttpFile, modelId: string, strength?: number, guidanceScale?: number, negativePrompt?: string, safetyCheck?: boolean, seed?: number, numImagesPerPrompt?: number, _options?: Configuration): Promise<ImageResponse> {
-        const result = this.api.imageToImage(prompt, image, modelId, strength, guidanceScale, negativePrompt, safetyCheck, seed, numImagesPerPrompt, _options);
+    public imageToImage(prompt: string, image: HttpFile, modelId: string, strength?: number, guidanceScale?: number, imageGuidanceScale?: number, negativePrompt?: string, safetyCheck?: boolean, seed?: number, numImagesPerPrompt?: number, _options?: Configuration): Promise<ImageResponse> {
+        const result = this.api.imageToImage(prompt, image, modelId, strength, guidanceScale, imageGuidanceScale, negativePrompt, safetyCheck, seed, numImagesPerPrompt, _options);
         return result.toPromise();
     }
 
@@ -69,9 +71,10 @@ export class PromiseDefaultApi {
      * @param motionBucketId 
      * @param noiseAugStrength 
      * @param seed 
+     * @param safetyCheck 
      */
-    public imageToVideoWithHttpInfo(image: HttpFile, modelId: string, height?: number, width?: number, fps?: number, motionBucketId?: number, noiseAugStrength?: number, seed?: number, _options?: Configuration): Promise<HttpInfo<VideoResponse>> {
-        const result = this.api.imageToVideoWithHttpInfo(image, modelId, height, width, fps, motionBucketId, noiseAugStrength, seed, _options);
+    public imageToVideoWithHttpInfo(image: HttpFile, modelId: string, height?: number, width?: number, fps?: number, motionBucketId?: number, noiseAugStrength?: number, seed?: number, safetyCheck?: boolean, _options?: Configuration): Promise<HttpInfo<VideoResponse>> {
+        const result = this.api.imageToVideoWithHttpInfo(image, modelId, height, width, fps, motionBucketId, noiseAugStrength, seed, safetyCheck, _options);
         return result.toPromise();
     }
 
@@ -85,9 +88,10 @@ export class PromiseDefaultApi {
      * @param motionBucketId 
      * @param noiseAugStrength 
      * @param seed 
+     * @param safetyCheck 
      */
-    public imageToVideo(image: HttpFile, modelId: string, height?: number, width?: number, fps?: number, motionBucketId?: number, noiseAugStrength?: number, seed?: number, _options?: Configuration): Promise<VideoResponse> {
-        const result = this.api.imageToVideo(image, modelId, height, width, fps, motionBucketId, noiseAugStrength, seed, _options);
+    public imageToVideo(image: HttpFile, modelId: string, height?: number, width?: number, fps?: number, motionBucketId?: number, noiseAugStrength?: number, seed?: number, safetyCheck?: boolean, _options?: Configuration): Promise<VideoResponse> {
+        const result = this.api.imageToVideo(image, modelId, height, width, fps, motionBucketId, noiseAugStrength, seed, safetyCheck, _options);
         return result.toPromise();
     }
 
@@ -106,6 +110,32 @@ export class PromiseDefaultApi {
      */
     public textToImage(textToImageParams: TextToImageParams, _options?: Configuration): Promise<ImageResponse> {
         const result = this.api.textToImage(textToImageParams, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Upscale
+     * @param prompt 
+     * @param image 
+     * @param modelId 
+     * @param safetyCheck 
+     * @param seed 
+     */
+    public upscaleWithHttpInfo(prompt: string, image: HttpFile, modelId: string, safetyCheck?: boolean, seed?: number, _options?: Configuration): Promise<HttpInfo<ImageResponse>> {
+        const result = this.api.upscaleWithHttpInfo(prompt, image, modelId, safetyCheck, seed, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Upscale
+     * @param prompt 
+     * @param image 
+     * @param modelId 
+     * @param safetyCheck 
+     * @param seed 
+     */
+    public upscale(prompt: string, image: HttpFile, modelId: string, safetyCheck?: boolean, seed?: number, _options?: Configuration): Promise<ImageResponse> {
+        const result = this.api.upscale(prompt, image, modelId, safetyCheck, seed, _options);
         return result.toPromise();
     }
 

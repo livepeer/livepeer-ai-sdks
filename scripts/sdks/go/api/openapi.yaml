@@ -118,6 +118,43 @@ paths:
       security:
       - HTTPBearer: []
       summary: Image To Video
+  /upscale:
+    post:
+      operationId: upscale
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upscale_upscale_post'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+          description: Successful Response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+          description: Internal Server Error
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upscale
 components:
   schemas:
     APIError:
@@ -150,6 +187,10 @@ components:
         guidance_scale:
           default: 7.5
           title: Guidance Scale
+          type: number
+        image_guidance_scale:
+          default: 1.5
+          title: Image Guidance Scale
           type: number
         negative_prompt:
           default: ""
@@ -204,10 +245,39 @@ components:
         seed:
           title: Seed
           type: integer
+        safety_check:
+          default: true
+          title: Safety Check
+          type: boolean
       required:
       - image
       - model_id
       title: Body_image_to_video_image_to_video_post
+    Body_upscale_upscale_post:
+      properties:
+        prompt:
+          title: Prompt
+          type: string
+        image:
+          format: binary
+          title: Image
+          type: string
+        model_id:
+          default: ""
+          title: Model Id
+          type: string
+        safety_check:
+          default: true
+          title: Safety Check
+          type: boolean
+        seed:
+          title: Seed
+          type: integer
+      required:
+      - image
+      - model_id
+      - prompt
+      title: Body_upscale_upscale_post
     HTTPError:
       example:
         detail:
