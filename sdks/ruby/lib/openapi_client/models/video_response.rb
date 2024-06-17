@@ -15,12 +15,12 @@ require 'time'
 
 module OpenapiClient
   class VideoResponse
-    attr_accessor :frames
+    attr_accessor :images
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'frames' => :'frames'
+        :'images' => :'images'
       }
     end
 
@@ -32,7 +32,7 @@ module OpenapiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'frames' => :'Array<Array<Media>>'
+        :'images' => :'Array<Media>'
       }
     end
 
@@ -57,12 +57,12 @@ module OpenapiClient
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'frames')
-        if (value = attributes[:'frames']).is_a?(Array)
-          self.frames = value
+      if attributes.key?(:'images')
+        if (value = attributes[:'images']).is_a?(Array)
+          self.images = value
         end
       else
-        self.frames = nil
+        self.images = nil
       end
     end
 
@@ -71,8 +71,8 @@ module OpenapiClient
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @frames.nil?
-        invalid_properties.push('invalid value for "frames", frames cannot be nil.')
+      if @images.nil?
+        invalid_properties.push('invalid value for "images", images cannot be nil.')
       end
 
       invalid_properties
@@ -82,7 +82,7 @@ module OpenapiClient
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @frames.nil?
+      return false if @images.nil?
       true
     end
 
@@ -91,7 +91,7 @@ module OpenapiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          frames == o.frames
+          images == o.images
     end
 
     # @see the `==` method
@@ -103,7 +103,7 @@ module OpenapiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [frames].hash
+      [images].hash
     end
 
     # Builds the object from hash

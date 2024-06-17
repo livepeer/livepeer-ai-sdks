@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**frames** | **[[Media]]** |  | 
+**images** | [**[Media]**](Media.md) |  | 
 
 

@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictBytes, StrictFloat, StrictInt, StrictStr
+from pydantic import StrictBool, StrictBytes, StrictFloat, StrictInt, StrictStr
 from typing import Optional, Union
 from livepeer_ai.models.image_response import ImageResponse
 from livepeer_ai.models.text_to_image_params import TextToImageParams
@@ -48,7 +48,9 @@ class DefaultApi:
         model_id: StrictStr,
         strength: Optional[Union[StrictFloat, StrictInt]] = None,
         guidance_scale: Optional[Union[StrictFloat, StrictInt]] = None,
+        image_guidance_scale: Optional[Union[StrictFloat, StrictInt]] = None,
         negative_prompt: Optional[StrictStr] = None,
+        safety_check: Optional[StrictBool] = None,
         seed: Optional[StrictInt] = None,
         num_images_per_prompt: Optional[StrictInt] = None,
         _request_timeout: Union[
@@ -77,8 +79,12 @@ class DefaultApi:
         :type strength: float
         :param guidance_scale:
         :type guidance_scale: float
+        :param image_guidance_scale:
+        :type image_guidance_scale: float
         :param negative_prompt:
         :type negative_prompt: str
+        :param safety_check:
+        :type safety_check: bool
         :param seed:
         :type seed: int
         :param num_images_per_prompt:
@@ -111,7 +117,9 @@ class DefaultApi:
             model_id=model_id,
             strength=strength,
             guidance_scale=guidance_scale,
+            image_guidance_scale=image_guidance_scale,
             negative_prompt=negative_prompt,
+            safety_check=safety_check,
             seed=seed,
             num_images_per_prompt=num_images_per_prompt,
             _request_auth=_request_auth,
@@ -145,7 +153,9 @@ class DefaultApi:
         model_id: StrictStr,
         strength: Optional[Union[StrictFloat, StrictInt]] = None,
         guidance_scale: Optional[Union[StrictFloat, StrictInt]] = None,
+        image_guidance_scale: Optional[Union[StrictFloat, StrictInt]] = None,
         negative_prompt: Optional[StrictStr] = None,
+        safety_check: Optional[StrictBool] = None,
         seed: Optional[StrictInt] = None,
         num_images_per_prompt: Optional[StrictInt] = None,
         _request_timeout: Union[
@@ -174,8 +184,12 @@ class DefaultApi:
         :type strength: float
         :param guidance_scale:
         :type guidance_scale: float
+        :param image_guidance_scale:
+        :type image_guidance_scale: float
         :param negative_prompt:
         :type negative_prompt: str
+        :param safety_check:
+        :type safety_check: bool
         :param seed:
         :type seed: int
         :param num_images_per_prompt:
@@ -208,7 +222,9 @@ class DefaultApi:
             model_id=model_id,
             strength=strength,
             guidance_scale=guidance_scale,
+            image_guidance_scale=image_guidance_scale,
             negative_prompt=negative_prompt,
+            safety_check=safety_check,
             seed=seed,
             num_images_per_prompt=num_images_per_prompt,
             _request_auth=_request_auth,
@@ -242,7 +258,9 @@ class DefaultApi:
         model_id: StrictStr,
         strength: Optional[Union[StrictFloat, StrictInt]] = None,
         guidance_scale: Optional[Union[StrictFloat, StrictInt]] = None,
+        image_guidance_scale: Optional[Union[StrictFloat, StrictInt]] = None,
         negative_prompt: Optional[StrictStr] = None,
+        safety_check: Optional[StrictBool] = None,
         seed: Optional[StrictInt] = None,
         num_images_per_prompt: Optional[StrictInt] = None,
         _request_timeout: Union[
@@ -271,8 +289,12 @@ class DefaultApi:
         :type strength: float
         :param guidance_scale:
         :type guidance_scale: float
+        :param image_guidance_scale:
+        :type image_guidance_scale: float
         :param negative_prompt:
         :type negative_prompt: str
+        :param safety_check:
+        :type safety_check: bool
         :param seed:
         :type seed: int
         :param num_images_per_prompt:
@@ -305,7 +327,9 @@ class DefaultApi:
             model_id=model_id,
             strength=strength,
             guidance_scale=guidance_scale,
+            image_guidance_scale=image_guidance_scale,
             negative_prompt=negative_prompt,
+            safety_check=safety_check,
             seed=seed,
             num_images_per_prompt=num_images_per_prompt,
             _request_auth=_request_auth,
@@ -334,7 +358,9 @@ class DefaultApi:
         model_id,
         strength,
         guidance_scale,
+        image_guidance_scale,
         negative_prompt,
+        safety_check,
         seed,
         num_images_per_prompt,
         _request_auth,
@@ -369,8 +395,12 @@ class DefaultApi:
             _form_params.append(('strength', strength))
         if guidance_scale is not None:
             _form_params.append(('guidance_scale', guidance_scale))
+        if image_guidance_scale is not None:
+            _form_params.append(('image_guidance_scale', image_guidance_scale))
         if negative_prompt is not None:
             _form_params.append(('negative_prompt', negative_prompt))
+        if safety_check is not None:
+            _form_params.append(('safety_check', safety_check))
         if seed is not None:
             _form_params.append(('seed', seed))
         if num_images_per_prompt is not None:
@@ -433,6 +463,7 @@ class DefaultApi:
         motion_bucket_id: Optional[StrictInt] = None,
         noise_aug_strength: Optional[Union[StrictFloat, StrictInt]] = None,
         seed: Optional[StrictInt] = None,
+        safety_check: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -465,6 +496,8 @@ class DefaultApi:
         :type noise_aug_strength: float
         :param seed:
         :type seed: int
+        :param safety_check:
+        :type safety_check: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -496,6 +529,7 @@ class DefaultApi:
             motion_bucket_id=motion_bucket_id,
             noise_aug_strength=noise_aug_strength,
             seed=seed,
+            safety_check=safety_check,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -530,6 +564,7 @@ class DefaultApi:
         motion_bucket_id: Optional[StrictInt] = None,
         noise_aug_strength: Optional[Union[StrictFloat, StrictInt]] = None,
         seed: Optional[StrictInt] = None,
+        safety_check: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -562,6 +597,8 @@ class DefaultApi:
         :type noise_aug_strength: float
         :param seed:
         :type seed: int
+        :param safety_check:
+        :type safety_check: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -593,6 +630,7 @@ class DefaultApi:
             motion_bucket_id=motion_bucket_id,
             noise_aug_strength=noise_aug_strength,
             seed=seed,
+            safety_check=safety_check,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -627,6 +665,7 @@ class DefaultApi:
         motion_bucket_id: Optional[StrictInt] = None,
         noise_aug_strength: Optional[Union[StrictFloat, StrictInt]] = None,
         seed: Optional[StrictInt] = None,
+        safety_check: Optional[StrictBool] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -659,6 +698,8 @@ class DefaultApi:
         :type noise_aug_strength: float
         :param seed:
         :type seed: int
+        :param safety_check:
+        :type safety_check: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -690,6 +731,7 @@ class DefaultApi:
             motion_bucket_id=motion_bucket_id,
             noise_aug_strength=noise_aug_strength,
             seed=seed,
+            safety_check=safety_check,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -719,6 +761,7 @@ class DefaultApi:
         motion_bucket_id,
         noise_aug_strength,
         seed,
+        safety_check,
         _request_auth,
         _content_type,
         _headers,
@@ -757,6 +800,8 @@ class DefaultApi:
             _form_params.append(('noise_aug_strength', noise_aug_strength))
         if seed is not None:
             _form_params.append(('seed', seed))
+        if safety_check is not None:
+            _form_params.append(('safety_check', safety_check))
         # process the body parameter
 
 
@@ -1066,6 +1111,343 @@ class DefaultApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/text-to-image',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def upscale(
+        self,
+        prompt: StrictStr,
+        image: Union[StrictBytes, StrictStr],
+        model_id: StrictStr,
+        safety_check: Optional[StrictBool] = None,
+        seed: Optional[StrictInt] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ImageResponse:
+        """Upscale
+
+
+        :param prompt: (required)
+        :type prompt: str
+        :param image: (required)
+        :type image: bytearray
+        :param model_id: (required)
+        :type model_id: str
+        :param safety_check:
+        :type safety_check: bool
+        :param seed:
+        :type seed: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._upscale_serialize(
+            prompt=prompt,
+            image=image,
+            model_id=model_id,
+            safety_check=safety_check,
+            seed=seed,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ImageResponse",
+            '400': "HTTPError",
+            '500': "HTTPError",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def upscale_with_http_info(
+        self,
+        prompt: StrictStr,
+        image: Union[StrictBytes, StrictStr],
+        model_id: StrictStr,
+        safety_check: Optional[StrictBool] = None,
+        seed: Optional[StrictInt] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ImageResponse]:
+        """Upscale
+
+
+        :param prompt: (required)
+        :type prompt: str
+        :param image: (required)
+        :type image: bytearray
+        :param model_id: (required)
+        :type model_id: str
+        :param safety_check:
+        :type safety_check: bool
+        :param seed:
+        :type seed: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._upscale_serialize(
+            prompt=prompt,
+            image=image,
+            model_id=model_id,
+            safety_check=safety_check,
+            seed=seed,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ImageResponse",
+            '400': "HTTPError",
+            '500': "HTTPError",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def upscale_without_preload_content(
+        self,
+        prompt: StrictStr,
+        image: Union[StrictBytes, StrictStr],
+        model_id: StrictStr,
+        safety_check: Optional[StrictBool] = None,
+        seed: Optional[StrictInt] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Upscale
+
+
+        :param prompt: (required)
+        :type prompt: str
+        :param image: (required)
+        :type image: bytearray
+        :param model_id: (required)
+        :type model_id: str
+        :param safety_check:
+        :type safety_check: bool
+        :param seed:
+        :type seed: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._upscale_serialize(
+            prompt=prompt,
+            image=image,
+            model_id=model_id,
+            safety_check=safety_check,
+            seed=seed,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ImageResponse",
+            '400': "HTTPError",
+            '500': "HTTPError",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _upscale_serialize(
+        self,
+        prompt,
+        image,
+        model_id,
+        safety_check,
+        seed,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[str, Union[str, bytes]] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        if prompt is not None:
+            _form_params.append(('prompt', prompt))
+        if image is not None:
+            _files['image'] = image
+        if model_id is not None:
+            _form_params.append(('model_id', model_id))
+        if safety_check is not None:
+            _form_params.append(('safety_check', safety_check))
+        if seed is not None:
+            _form_params.append(('seed', seed))
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            [
+                'application/json'
+            ]
+        )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'multipart/form-data'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'HTTPBearer'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/upscale',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.http_validation_error import HTTPValidationError
+from livepeer_ai.models.http_validation_error import HTTPValidationError
 
 class TestHTTPValidationError(unittest.TestCase):
     """HTTPValidationError unit test stubs"""
@@ -36,7 +36,7 @@ class TestHTTPValidationError(unittest.TestCase):
         if include_optional:
             return HTTPValidationError(
                 detail = [
-                    openapi_client.models.validation_error.ValidationError(
+                    livepeer_ai.models.validation_error.ValidationError(
                         loc = [
                             null
                             ], 

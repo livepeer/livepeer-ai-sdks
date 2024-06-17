@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.media import Media
+from livepeer_ai.models.media import Media
 
 class TestMedia(unittest.TestCase):
     """Media unit test stubs"""
@@ -36,12 +36,14 @@ class TestMedia(unittest.TestCase):
         if include_optional:
             return Media(
                 url = '',
-                seed = 56
+                seed = 56,
+                nsfw = True
             )
         else:
             return Media(
                 url = '',
                 seed = 56,
+                nsfw = True,
         )
         """
 

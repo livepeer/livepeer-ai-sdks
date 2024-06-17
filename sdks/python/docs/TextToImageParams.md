@@ -11,7 +11,9 @@ Name | Type | Description | Notes
 **width** | **int** |  | [optional] 
 **guidance_scale** | **float** |  | [optional] [default to 7.5]
 **negative_prompt** | **str** |  | [optional] [default to '']
+**safety_check** | **bool** |  | [optional] [default to True]
 **seed** | **int** |  | [optional] 
+**num_inference_steps** | **int** |  | [optional] [default to 50]
 **num_images_per_prompt** | **int** |  | [optional] [default to 1]
 
 ## Example

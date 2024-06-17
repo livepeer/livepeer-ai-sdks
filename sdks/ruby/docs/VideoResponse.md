@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **frames** | **Array&lt;Array&lt;Media&gt;&gt;** |  |  |
+| **images** | [**Array&lt;Media&gt;**](Media.md) |  |  |
 
 ## Example
 
@@ -12,7 +12,7 @@
 require 'openapi_client'
 
 instance = OpenapiClient::VideoResponse.new(
-  frames: null
+  images: null
 )
 ```
 

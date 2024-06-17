@@ -81,6 +81,7 @@ Class | Method | HTTP request | Description
 *DefaultAPI* | [**ImageToImage**](docs/DefaultAPI.md#imagetoimage) | **Post** /image-to-image | Image To Image
 *DefaultAPI* | [**ImageToVideo**](docs/DefaultAPI.md#imagetovideo) | **Post** /image-to-video | Image To Video
 *DefaultAPI* | [**TextToImage**](docs/DefaultAPI.md#texttoimage) | **Post** /text-to-image | Text To Image
+*DefaultAPI* | [**Upscale**](docs/DefaultAPI.md#upscale) | **Post** /upscale | Upscale
 
 
 ## Documentation For Models

@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.api_error import APIError
+from livepeer_ai.models.api_error import APIError
 
 class TestAPIError(unittest.TestCase):
     """APIError unit test stubs"""

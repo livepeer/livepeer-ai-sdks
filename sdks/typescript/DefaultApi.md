@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**imageToImage**](DefaultApi.md#imageToImage) | **POST** /image-to-image | Image To Image
 [**imageToVideo**](DefaultApi.md#imageToVideo) | **POST** /image-to-video | Image To Video
 [**textToImage**](DefaultApi.md#textToImage) | **POST** /text-to-image | Text To Image
+[**upscale**](DefaultApi.md#upscale) | **POST** /upscale | Upscale
 
 
 # **imageToImage**
@@ -34,6 +35,8 @@ let body:.DefaultApiImageToImageRequest = {
   strength: 0.8,
   // number (optional)
   guidanceScale: 7.5,
+  // number (optional)
+  imageGuidanceScale: 1.5,
   // string (optional)
   negativePrompt: "",
   // boolean (optional)
@@ -59,6 +62,7 @@ Name | Type | Description  | Notes
  **modelId** | [**string**] |  | defaults to ''
  **strength** | [**number**] |  | (optional) defaults to 0.8
  **guidanceScale** | [**number**] |  | (optional) defaults to 7.5
+ **imageGuidanceScale** | [**number**] |  | (optional) defaults to 1.5
  **negativePrompt** | [**string**] |  | (optional) defaults to ''
  **safetyCheck** | [**boolean**] |  | (optional) defaults to true
  **seed** | [**number**] |  | (optional) defaults to undefined
@@ -120,6 +124,8 @@ let body:.DefaultApiImageToVideoRequest = {
   noiseAugStrength: 0.02,
   // number (optional)
   seed: 1,
+  // boolean (optional)
+  safetyCheck: true,
 };
 
 apiInstance.imageToVideo(body).then((data:any) => {
@@ -140,6 +146,7 @@ Name | Type | Description  | Notes
  **motionBucketId** | [**number**] |  | (optional) defaults to 127
  **noiseAugStrength** | [**number**] |  | (optional) defaults to 0.02
  **seed** | [**number**] |  | (optional) defaults to undefined
+ **safetyCheck** | [**boolean**] |  | (optional) defaults to true
 
 
 ### Return type
@@ -209,6 +216,74 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**400** | Bad Request |  -  |
+**500** | Internal Server Error |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **upscale**
+> ImageResponse upscale()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .DefaultApi(configuration);
+
+let body:.DefaultApiUpscaleRequest = {
+  // string
+  prompt: "prompt_example",
+  // HttpFile
+  image: { data: Buffer.from(fs.readFileSync('/path/to/file', 'utf-8')), name: '/path/to/file' },
+  // string
+  modelId: "",
+  // boolean (optional)
+  safetyCheck: true,
+  // number (optional)
+  seed: 1,
+};
+
+apiInstance.upscale(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **prompt** | [**string**] |  | defaults to undefined
+ **image** | [**HttpFile**] |  | defaults to undefined
+ **modelId** | [**string**] |  | defaults to ''
+ **safetyCheck** | [**boolean**] |  | (optional) defaults to true
+ **seed** | [**number**] |  | (optional) defaults to undefined
+
+
+### Return type
+
+**ImageResponse**
+
+### Authorization
+
+[HTTPBearer](README.md#HTTPBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 

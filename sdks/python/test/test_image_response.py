@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.image_response import ImageResponse
+from livepeer_ai.models.image_response import ImageResponse
 
 class TestImageResponse(unittest.TestCase):
     """ImageResponse unit test stubs"""
@@ -36,17 +36,19 @@ class TestImageResponse(unittest.TestCase):
         if include_optional:
             return ImageResponse(
                 images = [
-                    openapi_client.models.media.Media(
+                    livepeer_ai.models.media.Media(
                         url = '', 
-                        seed = 56, )
+                        seed = 56, 
+                        nsfw = True, )
                     ]
             )
         else:
             return ImageResponse(
                 images = [
-                    openapi_client.models.media.Media(
+                    livepeer_ai.models.media.Media(
                         url = '', 
-                        seed = 56, )
+                        seed = 56, 
+                        nsfw = True, )
                     ],
         )
         """

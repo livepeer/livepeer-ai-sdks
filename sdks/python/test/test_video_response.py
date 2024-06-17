@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.video_response import VideoResponse
+from livepeer_ai.models.video_response import VideoResponse
 
 class TestVideoResponse(unittest.TestCase):
     """VideoResponse unit test stubs"""
@@ -37,9 +37,10 @@ class TestVideoResponse(unittest.TestCase):
             return VideoResponse(
                 frames = [
                     [
-                        openapi_client.models.media.Media(
+                        livepeer_ai.models.media.Media(
                             url = '', 
-                            seed = 56, )
+                            seed = 56, 
+                            nsfw = True, )
                         ]
                     ]
             )
@@ -47,9 +48,10 @@ class TestVideoResponse(unittest.TestCase):
             return VideoResponse(
                 frames = [
                     [
-                        openapi_client.models.media.Media(
+                        livepeer_ai.models.media.Media(
                             url = '', 
-                            seed = 56, )
+                            seed = 56, 
+                            nsfw = True, )
                         ]
                     ],
         )

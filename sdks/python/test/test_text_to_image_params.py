@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.text_to_image_params import TextToImageParams
+from livepeer_ai.models.text_to_image_params import TextToImageParams
 
 class TestTextToImageParams(unittest.TestCase):
     """TextToImageParams unit test stubs"""
@@ -41,7 +41,9 @@ class TestTextToImageParams(unittest.TestCase):
                 width = 56,
                 guidance_scale = 1.337,
                 negative_prompt = '',
+                safety_check = True,
                 seed = 56,
+                num_inference_steps = 56,
                 num_images_per_prompt = 56
             )
         else:

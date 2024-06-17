@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,9 +32,11 @@ class TextToImageParams(BaseModel):
     width: Optional[StrictInt] = None
     guidance_scale: Optional[Union[StrictFloat, StrictInt]] = 7.5
     negative_prompt: Optional[StrictStr] = ''
+    safety_check: Optional[StrictBool] = True
     seed: Optional[StrictInt] = None
+    num_inference_steps: Optional[StrictInt] = 50
     num_images_per_prompt: Optional[StrictInt] = 1
-    __properties: ClassVar[List[str]] = ["model_id", "prompt", "height", "width", "guidance_scale", "negative_prompt", "seed", "num_images_per_prompt"]
+    __properties: ClassVar[List[str]] = ["model_id", "prompt", "height", "width", "guidance_scale", "negative_prompt", "safety_check", "seed", "num_inference_steps", "num_images_per_prompt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +95,9 @@ class TextToImageParams(BaseModel):
             "width": obj.get("width"),
             "guidance_scale": obj.get("guidance_scale") if obj.get("guidance_scale") is not None else 7.5,
             "negative_prompt": obj.get("negative_prompt") if obj.get("negative_prompt") is not None else '',
+            "safety_check": obj.get("safety_check") if obj.get("safety_check") is not None else True,
             "seed": obj.get("seed"),
+            "num_inference_steps": obj.get("num_inference_steps") if obj.get("num_inference_steps") is not None else 50,
             "num_images_per_prompt": obj.get("num_images_per_prompt") if obj.get("num_images_per_prompt") is not None else 1
         })
         return _obj

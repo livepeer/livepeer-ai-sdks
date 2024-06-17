@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.api.default_api import DefaultApi
+from livepeer_ai.api.default_api import DefaultApi
 
 
 class TestDefaultApi(unittest.TestCase):

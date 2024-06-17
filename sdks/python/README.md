@@ -81,13 +81,15 @@ with livepeer_ai.ApiClient(configuration) as api_client:
     model_id = '' # str |  (default to '')
     strength = 0.8 # float |  (optional) (default to 0.8)
     guidance_scale = 7.5 # float |  (optional) (default to 7.5)
+    image_guidance_scale = 1.5 # float |  (optional) (default to 1.5)
     negative_prompt = '' # str |  (optional) (default to '')
+    safety_check = True # bool |  (optional) (default to True)
     seed = 56 # int |  (optional)
     num_images_per_prompt = 1 # int |  (optional) (default to 1)
 
     try:
         # Image To Image
-        api_response = api_instance.image_to_image(prompt, image, model_id, strength=strength, guidance_scale=guidance_scale, negative_prompt=negative_prompt, seed=seed, num_images_per_prompt=num_images_per_prompt)
+        api_response = api_instance.image_to_image(prompt, image, model_id, strength=strength, guidance_scale=guidance_scale, image_guidance_scale=image_guidance_scale, negative_prompt=negative_prompt, safety_check=safety_check, seed=seed, num_images_per_prompt=num_images_per_prompt)
         print("The response of DefaultApi->image_to_image:\n")
         pprint(api_response)
     except ApiException as e:
@@ -104,6 +106,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**image_to_image**](docs/DefaultApi.md#image_to_image) | **POST** /image-to-image | Image To Image
 *DefaultApi* | [**image_to_video**](docs/DefaultApi.md#image_to_video) | **POST** /image-to-video | Image To Video
 *DefaultApi* | [**text_to_image**](docs/DefaultApi.md#text_to_image) | **POST** /text-to-image | Text To Image
+*DefaultApi* | [**upscale**](docs/DefaultApi.md#upscale) | **POST** /upscale | Upscale
 
 
 ## Documentation For Models

@@ -14,15 +14,15 @@ import { Media } from '../models/Media';
 import { HttpFile } from '../http/http';
 
 export class VideoResponse {
-    'frames': Array<Array<Media>>;
+    'images': Array<Media>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "frames",
-            "baseName": "frames",
-            "type": "Array<Array<Media>>",
+            "name": "images",
+            "baseName": "images",
+            "type": "Array<Media>",
             "format": ""
         }    ];
 

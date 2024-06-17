@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.http_error import HTTPError
+from livepeer_ai.models.http_error import HTTPError
 
 class TestHTTPError(unittest.TestCase):
     """HTTPError unit test stubs"""
@@ -35,12 +35,12 @@ class TestHTTPError(unittest.TestCase):
         model = HTTPError()
         if include_optional:
             return HTTPError(
-                detail = openapi_client.models.api_error.APIError(
+                detail = livepeer_ai.models.api_error.APIError(
                     msg = '', )
             )
         else:
             return HTTPError(
-                detail = openapi_client.models.api_error.APIError(
+                detail = livepeer_ai.models.api_error.APIError(
                     msg = '', ),
         )
         """

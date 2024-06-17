@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**frames** | **List[List[Media]]** |  | 
+**images** | [**List[Media]**](Media.md) |  | 
 
 ## Example
 

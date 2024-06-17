@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.validation_error_loc_inner import ValidationErrorLocInner
+from livepeer_ai.models.validation_error_loc_inner import ValidationErrorLocInner
 
 class TestValidationErrorLocInner(unittest.TestCase):
     """ValidationErrorLocInner unit test stubs"""

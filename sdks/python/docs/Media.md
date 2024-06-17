@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **url** | **str** |  | 
 **seed** | **int** |  | 
+**nsfw** | **bool** |  | 
 
 ## Example
 

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +28,8 @@ class Media(BaseModel):
     """ # noqa: E501
     url: StrictStr
     seed: StrictInt
-    __properties: ClassVar[List[str]] = ["url", "seed"]
+    nsfw: StrictBool
+    __properties: ClassVar[List[str]] = ["url", "seed", "nsfw"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,7 +83,8 @@ class Media(BaseModel):
 
         _obj = cls.model_validate({
             "url": obj.get("url"),
-            "seed": obj.get("seed")
+            "seed": obj.get("seed"),
+            "nsfw": obj.get("nsfw")
         })
         return _obj
 
