@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           add-paths: |
             openapi_ai_gateway.json
-            sdk/*
+            sdks/*
           commit-message: "chore: update AI SDKs"
           title: "Automated AI SDKs update"
           body: |
