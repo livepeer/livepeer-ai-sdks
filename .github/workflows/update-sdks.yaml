@@ -1,0 +1,63 @@
+name: Update AI SDKs
+
+on:
+  repository_dispatch:
+    types: [update-ai-openapi]
+
+jobs:
+  update-ai-sdks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+
+      # Add this step to set up Node.js and npm with caching
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify your Node.js version here
+          cache: 'npm'
+
+      - name: Checkout ai-worker repository
+        uses: actions/checkout@v4
+        with:
+          repository: "livepeer/ai-worker"
+          path: "ai-worker"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ai-worker/runner/requirements.txt
+
+      - name: Generate AI OpenAPI specification
+        run: |
+          cd ai-worker/runner
+          python gen_openapi.py --entrypoint gateway
+          mv openapi_gateway.json $GITHUB_WORKSPACE/ai/api-reference/openapi_ai_gateway.json
+          cd $GITHUB_WORKSPACE
+
+      - name: Generate AI SDKs
+        run: |
+          bash scripts/generate_sdks.sh
+
+      - name: Commit OpenAPI spec and create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: |
+            ai/api-reference/openapi_ai_gateway.json
+            sdk/*
+          commit-message: "chore: update AI SDKs"
+          title: "Automated AI SDKs update"
+          body: |
+            This is an automated pull request to update the AI SDKS due to changes in \
+            the AI Worker OpenAPI specification (upstream commit \
+            [${{ github.event.client_payload.sha}})](https://livepeer/ai-worker/commit/${{github.event.client_payload.sha }})).
+          branch: "update-openapi-spec"
+          base: "main"
