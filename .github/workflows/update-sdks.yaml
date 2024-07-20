@@ -3,6 +3,7 @@ name: Update AI SDKs
 on:
   repository_dispatch:
     types: [update-ai-openapi]
+  workflow_dispatch:
 
 jobs:
   update-ai-sdks:
