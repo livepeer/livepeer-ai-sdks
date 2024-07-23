@@ -61,3 +61,4 @@ jobs:
             [${{ github.event.client_payload.sha}})](https://livepeer/ai-worker/commit/${{github.event.client_payload.sha }})).
           branch: "update-openapi-spec"
           base: "main"
+          author: "GitHub Actions <actions@github.com>"
