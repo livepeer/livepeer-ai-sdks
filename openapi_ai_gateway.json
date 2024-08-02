@@ -686,47 +686,59 @@
                     "model_id": {
                         "type": "string",
                         "title": "Model Id",
+                        "description": "",
                         "default": ""
                     },
                     "prompt": {
                         "type": "string",
-                        "title": "Prompt"
+                        "title": "Prompt",
+                        "description": ""
                     },
                     "height": {
                         "type": "integer",
-                        "title": "Height"
+                        "title": "Height",
+                        "description": "",
+                        "default": 576
                     },
                     "width": {
                         "type": "integer",
-                        "title": "Width"
+                        "title": "Width",
+                        "description": "",
+                        "default": 1024
                     },
                     "guidance_scale": {
                         "type": "number",
                         "title": "Guidance Scale",
+                        "description": "",
                         "default": 7.5
                     },
                     "negative_prompt": {
                         "type": "string",
                         "title": "Negative Prompt",
+                        "description": "",
                         "default": ""
                     },
                     "safety_check": {
                         "type": "boolean",
                         "title": "Safety Check",
+                        "description": "",
                         "default": true
                     },
                     "seed": {
                         "type": "integer",
-                        "title": "Seed"
+                        "title": "Seed",
+                        "description": ""
                     },
                     "num_inference_steps": {
                         "type": "integer",
                         "title": "Num Inference Steps",
+                        "description": "",
                         "default": 50
                     },
                     "num_images_per_prompt": {
                         "type": "integer",
                         "title": "Num Images Per Prompt",
+                        "description": "",
                         "default": 1
                     }
                 },
