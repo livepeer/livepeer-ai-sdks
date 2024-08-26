@@ -1,7 +1,7 @@
 # Livepeer AI SDKs
 
-> [!NOTE]
-> These SDKs are auto-generated and have not been rigorously tested or verified by the AI SPE team. They may contain bugs or issues.
+> [!WARNING]
+> These SDKs are no longer maintained. For the latest SDKs, refer to the [Livepeer AI Subnet documentation](https://docs.livepeer.ai/developers/introduction).
 
 Welcome to the repository for auto-generated client SDKs for interacting with the [Livepeer AI Subnet](https://docs.livepeer.ai/developers/introduction). These SDKs are generated from the [OpenAPI specification](https://github.com/livepeer/ai-worker/blob/main/runner/openapi.json) using the [OpenAPI Generator](https://openapi-generator.tech/docs/installation) tool.
 
